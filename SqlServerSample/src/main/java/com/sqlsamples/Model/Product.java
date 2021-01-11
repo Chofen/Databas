@@ -72,6 +72,10 @@ public class Product
         this.date = date;
     }
 
+    public int getDiscountCode() {
+        return discountCode;
+    }
+
 
 
     public String[] toStringArray()

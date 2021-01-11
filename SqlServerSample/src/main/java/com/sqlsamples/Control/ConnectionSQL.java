@@ -130,16 +130,33 @@ public class ConnectionSQL
     {
         try {
             connection = DriverManager.getConnection(connectionUrl);
-            String query = "{call AddProduct(?, ?, ?)}";
+            String query = "{call AddProduct(?, ?, ?, ?, ?, ?)}";
             CallableStatement statement = connection.prepareCall(query);
-
+            statement.setInt(1, product.getCode());
+            statement.setInt(2, product.getQuantity());
+            statement.setInt(3, product.getBasePrice());
+            statement.setString(4, product.getSupplierName());
+            statement.setInt(5, product.getDiscountCode());
+            statement.setDate(6, product.getDate());
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    public void editQuantity(int quantity, String productID)
+    public void editQuantity(int quantity, int productID)
     {
+        try {
+            connection = DriverManager.getConnection(connectionUrl);
+            String query = "call editProductQuantity(?, ?)}";
+            CallableStatement statement = connection.prepareCall(query);
+
+            statement.setInt(1, productID);
+            statement.setInt(2, quantity);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
 
     }
 
