@@ -54,15 +54,14 @@ public class ConnectionSQL
             while(res.next())
             {
                 Product product;
-                int code = res.getInt("code");
+                int code = res.getInt("pCode");
                 String name = res.getString("name");
                 int quantity = res.getInt("quantity");
                 int basePrice = res.getInt("basePrice");
                 String suppName = res.getString("suppName");
                 int discountCode = res.getInt("dCode");
-                Date date = res.getDate("date");
 
-                product = new Product(name, quantity, basePrice, suppName, date, discountCode);
+                product = new Product(name, quantity, basePrice, suppName, discountCode);
                 product.setCode(code);
                 products.add(product);
             }
@@ -130,28 +129,32 @@ public class ConnectionSQL
     {
         try {
             connection = DriverManager.getConnection(connectionUrl);
-            String query = "{call AddProduct(?, ?, ?, ?, ?, ?)}";
+            String query = "{call AddProduct(?, ?, ?, ?, ?)}";
             CallableStatement statement = connection.prepareCall(query);
-            statement.setInt(1, product.getCode());
+            statement.setString(1, product.getName());
             statement.setInt(2, product.getQuantity());
             statement.setInt(3, product.getBasePrice());
             statement.setString(4, product.getSupplierName());
             statement.setInt(5, product.getDiscountCode());
-            statement.setDate(6, product.getDate());
+            statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    public void editQuantity(int quantity, int productID)
+    public void editQuantity(int productID, int quantity)
     {
         try {
             connection = DriverManager.getConnection(connectionUrl);
-            String query = "call editProductQuantity(?, ?)}";
+            String query = "{call dbo.editProductQuantity(?, ?)}";
             CallableStatement statement = connection.prepareCall(query);
-
+            System.out.println(productID + " " + quantity);
             statement.setInt(1, productID);
             statement.setInt(2, quantity);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()) {
+                System.out.println(rs.getInt("pCode"));
+            }
         }
         catch(Exception e)
         {

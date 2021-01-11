@@ -10,7 +10,6 @@ public class Product
     private int quantity;
     private int basePrice;
     private String supplierName;
-    private Date date;
     private int discountCode;
 
 
@@ -22,13 +21,12 @@ public class Product
         this.code = code;
     }
 
-    public Product(String name, int quantity, int basePrice, String supplierName, Date date, int discountCode)
+    public Product(String name, int quantity, int basePrice, String supplierName, int discountCode)
     {
         this.name = name;
         this.quantity = quantity;
         this.basePrice = basePrice;
         this.supplierName = supplierName;
-        this.date = date;
         this.discountCode = discountCode;
     }
 
@@ -64,13 +62,6 @@ public class Product
         this.supplierName = supplierName;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public int getDiscountCode() {
         return discountCode;
@@ -80,6 +71,6 @@ public class Product
 
     public String[] toStringArray()
     {
-        return new String[]{""+code, name, "" + quantity, "" +basePrice, supplierName, date.toString(),""+ discountCode};
+        return new String[]{""+code, name, "" + quantity, "" +basePrice, supplierName, ""+discountCode};
     }
 }

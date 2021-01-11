@@ -15,16 +15,24 @@ public class MainView extends JFrame
     AdminView adminView;
     TableView tableView;
     
-    public MainView(ConnectionSQL connection)
+    public MainView(ConnectionSQL connection, boolean login)
     {
         this.connection = connection;
         setLayout(new BorderLayout());
-        loginView = new LoginView(this);
         tableView = new TableView(connection.getSuppliers(), connection.getProducts(), connection.getDiscounts());
-        JOptionPane.showInternalMessageDialog(null, loginView);
         tableView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
+        setBackground(Color.GREEN);
         setSize(1400, 800);
+        if (login)
+        {
+            loginView = new LoginView(this);
+            JOptionPane.showInternalMessageDialog(null, loginView);
+        }
+        else
+        {
+           login(true);
+        }
+
         setVisible(true);
     }
 
@@ -32,7 +40,7 @@ public class MainView extends JFrame
     {
         if (admin)
         {
-            adminView = new AdminView(this, connection.getSuppliers());
+            adminView = new AdminView(this, connection);
             add(adminView);
             this.setTitle("Admin Edition");
         }
@@ -46,31 +54,10 @@ public class MainView extends JFrame
         add(tableView, BorderLayout.SOUTH); // show table when user has logged in
     }
 
-    public void addProduct(Product product)
+
+    public void refresh()
     {
-        connection.addProduct(product);
+        dispose();
+        MainView mainView = new MainView(connection, false);
     }
-
-    public void editQuantity(int quantity, String productID)
-    {
-        connection.editQuantity(quantity, productID);
-    }
-
-    public void removeProduct(String productID)
-    {
-
-    }
-
-    /*public Product getProducts(String query)
-    {
-        return; // code
-    }
-
-     */
-
-    public void addDiscount()
-    {
-        // code
-    }
-
 }

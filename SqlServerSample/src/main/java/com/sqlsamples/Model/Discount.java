@@ -60,6 +60,6 @@ public class Discount
 
     public String[] toStringArray()
     {
-        return new String[]{name, startDate.toString(), endDate.toString(), ""+ percentage};
+        return new String[]{""+code, name, startDate.toString(), endDate.toString(), ""+ percentage};
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class SupplierView extends JPanel
 {
-    ArrayList<Supplier> suppliers;
+    AdminView adminView;
     JButton btnAddSupplier = new JButton("Add Supplier");
     AddSupplierListener addSupplierListener = new AddSupplierListener();
     JLabel lblName = new JLabel("Name");
@@ -22,10 +22,10 @@ public class SupplierView extends JPanel
     JTextField tfPhoneNbr = new JTextField();
     JTextField tfAddress = new JTextField();
 
-    public SupplierView(MainView mainView, ArrayList<Supplier> suppliers)
+    public SupplierView(AdminView adminView)
     {
+        this.adminView = adminView;
         this.setPreferredSize(new Dimension(700, 100));
-        this.suppliers = suppliers;
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
         btnAddSupplier.addActionListener(addSupplierListener);
 
@@ -53,7 +53,7 @@ public class SupplierView extends JPanel
         @Override
         public void actionPerformed(ActionEvent actionEvent)
         {
-
+            //adminView.addSupplier();
         }
     }
 

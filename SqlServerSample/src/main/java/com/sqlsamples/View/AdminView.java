@@ -1,6 +1,7 @@
 package com.sqlsamples.View;
 
 import com.sqlsamples.Control.ConnectionSQL;
+import com.sqlsamples.Model.Product;
 import com.sqlsamples.Model.Supplier;
 
 import javax.swing.*;
@@ -16,14 +17,14 @@ public class AdminView extends JPanel
     ProductView productView;
     SupplierView supplierView;
     ControlView controlView;
-    ArrayList<Supplier> suppliers;
+    ConnectionSQL connection;
 
-    public AdminView(MainView mainView, ArrayList<Supplier> suppliers)
+    public AdminView(MainView mainView, ConnectionSQL connectionSQL)
     {
+        this.connection = connectionSQL;
         this.mainView = mainView;
-        this.suppliers = suppliers;
-        productView = new ProductView(mainView);
-        supplierView = new SupplierView(mainView, suppliers);
+        productView = new ProductView(this);
+        supplierView = new SupplierView(this);
         setLayout(new BorderLayout());
         add(supplierView, BorderLayout.NORTH);
         add(productView, BorderLayout.CENTER);
@@ -31,5 +32,32 @@ public class AdminView extends JPanel
         setVisible(true);
     }
 
+    public void addProduct(Product product)
+    {
+        connection.addProduct(product);
+        mainView.refresh();
+    }
 
+    public void editQuantity(int quantity, int productID)
+    {
+        connection.editQuantity(quantity, productID);
+        mainView.refresh();
+    }
+
+    public void removeProduct(String productID)
+    {
+
+    }
+
+    /*public Product getProducts(String query)
+    {
+        return; // code
+    }
+
+     */
+
+    public void addDiscount()
+    {
+        // code
+    }
 }

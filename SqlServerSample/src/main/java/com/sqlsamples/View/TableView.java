@@ -49,7 +49,7 @@ public class TableView extends JPanel
         setVisible(true);
     }
 
-    private void setupTables() {
+    public void setupTables() {
         String[][] supplierData = new String[100][100];
         String[] supplierTableNames = {"Name", "Phone Number", "Address"};
         for (int i = 0; i < suppliers.size(); i++)
@@ -60,17 +60,15 @@ public class TableView extends JPanel
         this.add(new JScrollPane(supplierTable), BorderLayout.WEST);
 
         String[][] productData = new String[100][100];
-        String[] productTableNames = {"Code", "Name", "Quantity", "Base Price", "Supplier", "Discount", "Date"};
+        String[] productTableNames = {"Code", "Name", "Quantity", "Base Price", "Supplier", "Discount"};
         for (int i = 0; i < products.size(); i++)
         {
             productData[i] = products.get(i).toStringArray();
         }
         productTable = new JTable(productData, productTableNames);
         this.add(new JScrollPane(productTable), BorderLayout.CENTER);
-
-
         String[][] discountData = new String[100][100];
-        String[] discountTableNames = {"Name", "Start Date", "End Date", "Percentage"};
+        String[] discountTableNames = {"Code", "Name", "Start Date", "End Date", "Percentage"};
         for (int i = 0; i < discounts.size(); i++)
         {
             discountData[i] = discounts.get(i).toStringArray();
@@ -79,20 +77,7 @@ public class TableView extends JPanel
         this.add(new JScrollPane(discountTable), BorderLayout.EAST);
     }
 
-    public int getSelectedProductIndex()
-    {
-        return productTable.getSelectedRow();
-    }
 
-    public int getSelectedSupplierIndex()
-    {
-        return supplierTable.getSelectedRow();
-    }
-
-    public int getSelectedDiscountIndex()
-    {
-        return discountTable.getSelectedRow();
-    }
 
    
 }

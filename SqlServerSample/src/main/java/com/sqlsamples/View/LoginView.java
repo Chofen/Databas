@@ -22,7 +22,6 @@ public class LoginView extends JPanel
 
     public LoginView(MainView mainView)
     {
-
         this.mainView = mainView;
         setLayout(new FlowLayout());
         setSize(300, 300);

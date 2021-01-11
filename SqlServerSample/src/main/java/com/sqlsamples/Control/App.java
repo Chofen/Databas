@@ -15,6 +15,6 @@ public class App
     public void init()
     {
         ConnectionSQL connection = new ConnectionSQL();
-        MainView mainView = new MainView(connection);
+        MainView mainView = new MainView(connection, true);
     }
 }
