@@ -5,7 +5,7 @@ import com.sqlsamples.Model.Product;
 import javax.swing.*;
 import java.awt.*;
 
-public class CustomerView extends JFrame
+public class CustomerView extends JPanel
 {
     MainView mainView;
     JPanel upperPanelRight = new JPanel();

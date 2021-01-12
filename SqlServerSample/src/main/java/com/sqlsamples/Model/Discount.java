@@ -60,6 +60,10 @@ public class Discount
 
     public String[] toStringArray()
     {
+        if(startDate == null || endDate == null)
+        {
+            return new String[]{""+code, name, "null", "null", "" + percentage};
+        }
         return new String[]{""+code, name, startDate.toString(), endDate.toString(), ""+ percentage};
     }
 }

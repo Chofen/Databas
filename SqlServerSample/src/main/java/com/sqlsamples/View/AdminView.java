@@ -38,6 +38,12 @@ public class AdminView extends JPanel
         mainView.refresh();
     }
 
+    public void deleteProduct(int code)
+    {
+        connection.deleteProduct(code);
+        mainView.refresh();
+    }
+
     public void editQuantity(int quantity, int productID)
     {
         connection.editQuantity(quantity, productID);

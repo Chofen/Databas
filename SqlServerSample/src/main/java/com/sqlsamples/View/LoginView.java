@@ -54,6 +54,8 @@ public class LoginView extends JPanel
                 }
                 else
                 {
+
+                    btnLogin.setVisible(false);
                     mainView.login(false); // user
                     lblUsername.setText("Logged in as USER");
                 }

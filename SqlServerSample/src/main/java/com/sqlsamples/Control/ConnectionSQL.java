@@ -163,9 +163,19 @@ public class ConnectionSQL
 
     }
 
-    public void removeProduct(String productID)
+    public void deleteProduct(int productID)
     {
-
+        try {
+            connection = DriverManager.getConnection(connectionUrl);
+            String query = "{call dbo.deleteProduct(?)}";
+            CallableStatement statement = connection.prepareCall(query);;
+            statement.setInt(1, productID);
+            statement.executeQuery();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
     /*public Product getProducts(String query)

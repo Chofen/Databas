@@ -21,7 +21,6 @@ public class MainView extends JFrame
         setLayout(new BorderLayout());
         tableView = new TableView(connection.getSuppliers(), connection.getProducts(), connection.getDiscounts());
         tableView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        setBackground(Color.GREEN);
         setSize(1400, 800);
         if (login)
         {

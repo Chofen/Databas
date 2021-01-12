@@ -18,6 +18,7 @@ public class ProductView extends JPanel
     JButton btnAddProduct = new JButton("Add Product");
     AddProductListener addProductListener = new AddProductListener();
     EditProductListener editProductListener = new EditProductListener();
+    DeleteProductListener deleteProductListener = new DeleteProductListener();
 
     JLabel lblProduct = new JLabel("[PRODUCT]");
     JLabel lblProName = new JLabel("Name");
@@ -33,6 +34,7 @@ public class ProductView extends JPanel
     JTextField tfDiscount = new JTextField();
 
     JButton btnEditQuantity = new JButton("Edit");
+    JButton btnDeleteProduct = new JButton(("Delete"));
 
     public ProductView(AdminView adminView)
     {
@@ -42,7 +44,7 @@ public class ProductView extends JPanel
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
         btnEditQuantity.setPreferredSize(new Dimension(100, 25));
         btnEditQuantity.addActionListener(editProductListener);
-        
+        btnDeleteProduct.addActionListener(deleteProductListener);
         btnAddProduct.addActionListener(addProductListener);
         lblProduct.setPreferredSize(new Dimension(100, 25));
         lblProName.setPreferredSize(new Dimension(75, 25));
@@ -56,6 +58,7 @@ public class ProductView extends JPanel
         tfProQuantity.setPreferredSize(new Dimension(150, 25));
         tfSupplier.setPreferredSize(new Dimension(150, 25));
         btnAddProduct.setPreferredSize(new Dimension(150, 25));
+        btnDeleteProduct.setPreferredSize(new Dimension(150, 25));
 
         add(lblProduct);
         add(lblProName);
@@ -70,6 +73,7 @@ public class ProductView extends JPanel
         add(tfDiscount);
         add(btnEditQuantity);
         add(btnAddProduct);
+        add(btnDeleteProduct);
         setVisible(true);
     }
 
@@ -96,6 +100,16 @@ public class ProductView extends JPanel
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             addProduct();
+        }
+    }
+
+    private class DeleteProductListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            int code = Integer.parseInt(JOptionPane.showInputDialog("Product code:"));
+            adminView.deleteProduct(code);
         }
     }
 
