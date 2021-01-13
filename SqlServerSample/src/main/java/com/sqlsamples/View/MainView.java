@@ -1,6 +1,7 @@
 package com.sqlsamples.View;
 
 import com.sqlsamples.Control.ConnectionSQL;
+import com.sqlsamples.Model.Customer;
 import com.sqlsamples.Model.Product;
 
 import javax.swing.*;
@@ -51,6 +52,11 @@ public class MainView extends JFrame
         }
 
         add(tableView, BorderLayout.SOUTH); // show table when user has logged in
+    }
+
+    public void addCustomer(Customer customer)
+    {
+        customerView.addCustomer(customer);
     }
 
 

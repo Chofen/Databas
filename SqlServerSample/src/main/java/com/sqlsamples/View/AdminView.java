@@ -86,11 +86,13 @@ public class AdminView extends JPanel
     public void addSupplier(Supplier supplier)
     {
         connection.addSupplier(supplier);
+        mainView.refresh();
     }
 
     public void addDiscount(Discount discount)
     {
         connection.addDiscount(discount);
+        mainView.refresh();
     }
 
     public void acceptOrder(int orderNumber)

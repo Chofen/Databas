@@ -15,7 +15,6 @@ public class Customer
     public Customer(String username, String firstname,
                     String lastname, String email, String address, String city, String country, String phone) {
         this.username = username;
-        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;

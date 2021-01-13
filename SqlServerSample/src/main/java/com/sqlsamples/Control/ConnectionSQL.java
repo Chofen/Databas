@@ -112,7 +112,8 @@ public class ConnectionSQL
                 Date startDate = res.getDate("startDate");
                 Date endDate = res.getDate("endDate");
                 int percentage = res.getInt("percentage");
-                discount = new Discount(dCode, discountName, startDate, endDate, percentage);
+                discount = new Discount(discountName, startDate, endDate, percentage);
+                discount.setCode(dCode);
                 discounts.add(discount);
             }
         }
@@ -263,22 +264,17 @@ public class ConnectionSQL
 
     }
 
-    public void createOrder()
-    {
-
-    }
 
     public void addDiscount(Discount discount)
     {
         try {
             connection = DriverManager.getConnection(connectionUrl);
-            String query = "{call AddDiscount(?, ?, ?, ?, ?)}";
+            String query = "{call AddDiscount(?, ?, ?, ?)}";
             CallableStatement statement = connection.prepareCall(query);
-            statement.setInt(1, discount.getCode());
-            statement.setString(2, discount.getName());
-            statement.setDate(3, discount.getStartDate());
-            statement.setDate(4, discount.getEndDate());
-            statement.setInt(5, discount.getPercentage());
+            statement.setString(1, discount.getName());
+            statement.setDate(2, discount.getStartDate());
+            statement.setDate(3, discount.getEndDate());
+            statement.setInt(4, discount.getPercentage());
             statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

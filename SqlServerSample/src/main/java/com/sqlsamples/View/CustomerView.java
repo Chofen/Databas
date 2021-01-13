@@ -1,6 +1,7 @@
 package com.sqlsamples.View;
 
 import com.sqlsamples.Control.ConnectionSQL;
+import com.sqlsamples.Model.Customer;
 import com.sqlsamples.Model.Product;
 
 import javax.swing.*;
@@ -109,6 +110,11 @@ public class CustomerView extends JPanel
         String input = JOptionPane.showInputDialog("How many?");
         int value = Integer.parseInt(input);
         taShoppingCart.append(shoppingCart + value);
+    }
+
+    public void addCustomer(Customer customer)
+    {
+        connection.addCustomer(customer);
     }
 
 

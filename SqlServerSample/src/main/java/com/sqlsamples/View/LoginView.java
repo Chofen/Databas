@@ -1,5 +1,6 @@
 package com.sqlsamples.View;
 
+import com.sqlsamples.Model.Customer;
 import com.sqlsamples.View.AdminView;
 import com.sqlsamples.View.CustomerView;
 
@@ -67,6 +68,9 @@ public class LoginView extends JPanel {
                     city = JOptionPane.showInputDialog("Enter City");
                     country = JOptionPane.showInputDialog("Enter Country");
                     phone = JOptionPane.showInputDialog("Enter Phone");
+                    Customer customer = new Customer(tfUserName.getText(), firstname, lastname, email,
+                            address, city, country, phone);
+                    mainView.addCustomer(customer);
                     System.out.println(firstname);
 
                 }

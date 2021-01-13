@@ -19,8 +19,7 @@ public class Discount
         this.code = code;
     }
 
-    public Discount(int code, String name, java.sql.Date startDate, java.sql.Date endDate, int percentage) {
-        this.code = code;
+    public Discount(String name, java.sql.Date startDate, java.sql.Date endDate, int percentage) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
