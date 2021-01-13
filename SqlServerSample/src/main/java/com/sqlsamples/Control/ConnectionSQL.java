@@ -153,6 +153,37 @@ public class ConnectionSQL
         return discountHistories;
     }
 
+    public ArrayList<Order> getOrders()
+    {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        try
+        {
+            connection = DriverManager.getConnection(connectionUrl);
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM CusOrder");
+            while(res.next()) {
+                Order order;
+                int oCode = res.getInt("oCode");
+                int pCode = res.getInt("pCode");
+                String productName = res.getString("productName");
+                int basePrice = res.getInt("basePrice");
+                String supplierName = res.getString("suppName");
+                int dCode = res.getInt("dCode");
+                Date orderDate = res.getDate("orderDate");
+                String customerName = res.getString("customerName");
+                String orderStatus = res.getString("orderStatus");
+                order = new Order(oCode, pCode, productName, basePrice, supplierName, dCode,
+                        orderDate, customerName, orderStatus);
+                orders.add(order);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return orders;
+    }
+
     public void search(int code, String name, String supplier)
     {
         try {
@@ -182,7 +213,7 @@ public class ConnectionSQL
     {
         try {
             connection = DriverManager.getConnection(connectionUrl);
-            String query = "{call createCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            String query = "{call createCustomer(?, ?, ?, ?, ?, ?, ?, ?)}";
             CallableStatement statement = connection.prepareCall(query);
             statement.setString(1, customer.getUsername());
             statement.setString(2, customer.getFirstname());
@@ -209,6 +240,45 @@ public class ConnectionSQL
             statement.setInt(3, product.getBasePrice());
             statement.setString(4, product.getSupplierName());
             statement.setInt(5, product.getDiscountCode());
+            statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addSupplier(Supplier supplier)
+    {
+        try {
+            connection = DriverManager.getConnection(connectionUrl);
+            String query = "{call AddSupplier(?, ?, ?)}";
+            CallableStatement statement = connection.prepareCall(query);
+            statement.setString(1, supplier.getName());
+            statement.setString(2, supplier.getPhoneNbr());
+            statement.setString(3, supplier.getAddress());
+            statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void createOrder()
+    {
+
+    }
+
+    public void addDiscount(Discount discount)
+    {
+        try {
+            connection = DriverManager.getConnection(connectionUrl);
+            String query = "{call AddDiscount(?, ?, ?, ?, ?)}";
+            CallableStatement statement = connection.prepareCall(query);
+            statement.setInt(1, discount.getCode());
+            statement.setString(2, discount.getName());
+            statement.setDate(3, discount.getStartDate());
+            statement.setDate(4, discount.getEndDate());
+            statement.setInt(5, discount.getPercentage());
             statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -251,16 +321,22 @@ public class ConnectionSQL
         }
     }
 
-    /*public Product getProducts(String query)
+    public void acceptOrder(int orderNumber)
     {
-        return; // code
+        try
+        {
+            connection = DriverManager.getConnection(connectionUrl);
+            String query = "{call changeToAccepted(?)}";
+            CallableStatement statement = connection.prepareCall(query);
+            statement.setInt(1, orderNumber);
+            statement.executeQuery();
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 
-     */
-
-    public void addDiscount()
-    {
-        // code
-    }
 
 }

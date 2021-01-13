@@ -1,5 +1,6 @@
 package com.sqlsamples.View;
 
+import com.sqlsamples.Model.Discount;
 import com.sqlsamples.Model.Supplier;
 
 import javax.swing.*;
@@ -53,7 +54,8 @@ public class SupplierView extends JPanel
         @Override
         public void actionPerformed(ActionEvent actionEvent)
         {
-            //adminView.addSupplier();
+            Supplier supplier = new Supplier(tfName.getText(), tfPhoneNbr.getText(), tfAddress.getText());
+            adminView.addSupplier(supplier);
         }
     }
 

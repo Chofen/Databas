@@ -21,6 +21,7 @@ public class ProductView extends JPanel
     DeleteProductListener deleteProductListener = new DeleteProductListener();
     HistoryListener historyListener = new HistoryListener();
     SearchListener searchListener = new SearchListener();
+    OrderListener orderListener = new OrderListener();
 
     JLabel lblProduct = new JLabel("[PRODUCT]");
     JLabel lblProName = new JLabel("Name");
@@ -39,6 +40,7 @@ public class ProductView extends JPanel
     JButton btnDeleteProduct = new JButton(("Delete"));
     JButton btnHistory = new JButton(("History"));
     JButton btnSearch = new JButton("Search");
+    JButton btnOrders = new JButton("Orders");
 
     public ProductView(AdminView adminView)
     {
@@ -51,6 +53,7 @@ public class ProductView extends JPanel
         btnEditQuantity.addActionListener(editProductListener);
         btnDeleteProduct.addActionListener(deleteProductListener);
         btnAddProduct.addActionListener(addProductListener);
+        btnOrders.addActionListener(orderListener);
         btnHistory.addActionListener(historyListener);
         btnSearch.addActionListener(searchListener);
         lblProduct.setPreferredSize(new Dimension(100, 25));
@@ -84,6 +87,7 @@ public class ProductView extends JPanel
         add(btnDeleteProduct);
         add(btnHistory);
         add(btnSearch);
+        add(btnOrders);
         setVisible(true);
     }
 
@@ -140,6 +144,15 @@ public class ProductView extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             adminView.showHistory();
+        }
+    }
+
+    private class OrderListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            adminView.showOrders();
         }
     }
 

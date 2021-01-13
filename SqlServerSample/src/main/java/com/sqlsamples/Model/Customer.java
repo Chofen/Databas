@@ -12,7 +12,7 @@ public class Customer
     String country;
     String phone;
 
-    public Customer(String username, String password, String firstname,
+    public Customer(String username, String firstname,
                     String lastname, String email, String address, String city, String country, String phone) {
         this.username = username;
         this.password = password;
@@ -33,13 +33,6 @@ public class Customer
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getFirstname() {
         return firstname;

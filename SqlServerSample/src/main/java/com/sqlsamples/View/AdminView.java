@@ -2,6 +2,7 @@ package com.sqlsamples.View;
 
 import com.sqlsamples.Control.ConnectionSQL;
 import com.sqlsamples.Model.Customer;
+import com.sqlsamples.Model.Discount;
 import com.sqlsamples.Model.Product;
 import com.sqlsamples.Model.Supplier;
 
@@ -17,9 +18,10 @@ public class AdminView extends JPanel
 
     ProductView productView;
     SupplierView supplierView;
-    ControlView controlView;
     ConnectionSQL connection;
     HistoryView historyView;
+    DiscountView discountView;
+    OrderView orderView;
 
     public AdminView(MainView mainView, ConnectionSQL connectionSQL)
     {
@@ -27,9 +29,11 @@ public class AdminView extends JPanel
         this.mainView = mainView;
         productView = new ProductView(this);
         supplierView = new SupplierView(this);
+        discountView = new DiscountView(this);
         setLayout(new BorderLayout());
         add(supplierView, BorderLayout.NORTH);
         add(productView, BorderLayout.CENTER);
+        add(discountView, BorderLayout.SOUTH);
         setBackground(Color.RED);
         setVisible(true);
     }
@@ -46,33 +50,23 @@ public class AdminView extends JPanel
         mainView.refresh();
     }
 
+    public void showOrders()
+    {
+        orderView = new OrderView(connection.getOrders(), this);
+        JOptionPane.showMessageDialog(orderView, orderView);
+    }
+
     public void editQuantity(int quantity, int productID)
     {
         connection.editQuantity(quantity, productID);
         mainView.refresh();
     }
 
-    public void removeProduct(String productID)
-    {
-
-    }
 
     public void showHistory()
     {
         historyView = new HistoryView(connection.getDiscountHistory());
         JOptionPane.showMessageDialog(null, historyView);
-    }
-
-    /*public Product getProducts(String query)
-    {
-        return; // code
-    }
-
-     */
-
-    public void addDiscount()
-    {
-        // code
     }
 
     public void search()
@@ -88,4 +82,20 @@ public class AdminView extends JPanel
     {
         connection.addCustomer(customer);
     }
+
+    public void addSupplier(Supplier supplier)
+    {
+        connection.addSupplier(supplier);
+    }
+
+    public void addDiscount(Discount discount)
+    {
+        connection.addDiscount(discount);
+    }
+
+    public void acceptOrder(int orderNumber)
+    {
+        connection.acceptOrder(orderNumber);
+    }
+
 }
