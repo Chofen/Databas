@@ -1,8 +1,6 @@
 package com.sqlsamples.Control;
 
-import com.sqlsamples.Model.Discount;
-import com.sqlsamples.Model.Product;
-import com.sqlsamples.Model.Supplier;
+import com.sqlsamples.Model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -123,6 +121,81 @@ public class ConnectionSQL
             System.out.println(e);
         }
         return discounts;
+    }
+
+    public ArrayList<DiscountHistory> getDiscountHistory()
+    {
+        ArrayList<DiscountHistory> discountHistories = new ArrayList<DiscountHistory>();
+        try
+        {
+            connection = DriverManager.getConnection(connectionUrl);
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM DiscountHistory");
+            while(res.next())
+            {
+                DiscountHistory discountHistory;
+                int code = res.getInt("code");
+                String productName = res.getString("productName");
+                String discountName = res.getString("discountName");
+                Date startDate = res.getDate("startDate");
+                Date endDate = res.getDate("endDate");
+                int percentage = res.getInt("percentage");
+                int basePrice = res.getInt("basePrice");
+                int finalPrice = res.getInt("percentage");
+               discountHistory = new DiscountHistory(code, productName, discountName, startDate, endDate, percentage, basePrice, finalPrice);
+                discountHistories.add(discountHistory);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        return discountHistories;
+    }
+
+    public void search(int code, String name, String supplier)
+    {
+        try {
+            connection = DriverManager.getConnection(connectionUrl);
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery("SELECT * FROM Product\nWHERE( name = '" + name +
+                    "' AND pCode = " + code + " AND suppName = '" + supplier + "')");
+
+            ResultSetMetaData rsmd = res.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (res.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = res.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    public void addCustomer(Customer customer)
+    {
+        try {
+            connection = DriverManager.getConnection(connectionUrl);
+            String query = "{call createCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            CallableStatement statement = connection.prepareCall(query);
+            statement.setString(1, customer.getUsername());
+            statement.setString(2, customer.getFirstname());
+            statement.setString(3, customer.getLastname());
+            statement.setString(4, customer.getEmail());
+            statement.setString(5, customer.getAddress());
+            statement.setString(6, customer.getCity());
+            statement.setString(7, customer.getCountry());
+            statement.setString(8, customer.getPhone());
+            statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addProduct(Product product)

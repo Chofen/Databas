@@ -8,9 +8,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginView extends JPanel
-{
+public class LoginView extends JPanel {
     MainView mainView;
+    String firstname = "";
+    String lastname = "";
+    String email = "";
+    String address = "";
+    String city = "";
+    String country = "";
+    String phone = "";
 
     JTextField tfUserName = new JTextField();
     JTextField tfPassword = new JTextField();
@@ -20,8 +26,7 @@ public class LoginView extends JPanel
 
     ButtonListener buttonListener = new ButtonListener();
 
-    public LoginView(MainView mainView)
-    {
+    public LoginView(MainView mainView) {
         this.mainView = mainView;
         setLayout(new FlowLayout());
         setSize(300, 300);
@@ -39,25 +44,31 @@ public class LoginView extends JPanel
         setVisible(true);
     }
 
+
     private class ButtonListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent actionEvent)
-        {
-            if (!tfPassword.getText().isEmpty() && !tfUserName.getText().isEmpty())
-            {
-                if (tfPassword.getText().equals("admin") && tfUserName.getText().equals("admin"))
-                {
+        public void actionPerformed(ActionEvent actionEvent) {
+            if (!tfPassword.getText().isEmpty() && !tfUserName.getText().isEmpty()) {
+                if (tfPassword.getText().equals("admin") && tfUserName.getText().equals("admin")) {
                     btnLogin.setVisible(false);
 
                     mainView.login(true); // admin
                     lblUsername.setText("Logged in as ADMIN");
-                }
-                else
-                {
+                } else {
 
                     btnLogin.setVisible(false);
                     mainView.login(false); // user
                     lblUsername.setText("Logged in as USER");
+
+                    firstname = JOptionPane.showInputDialog("Enter Firstname");
+                    lastname = JOptionPane.showInputDialog("Enter Lastname");
+                    email = JOptionPane.showInputDialog("Enter Email");
+                    address = JOptionPane.showInputDialog("Enter Address");
+                    city = JOptionPane.showInputDialog("Enter City");
+                    country = JOptionPane.showInputDialog("Enter Country");
+                    phone = JOptionPane.showInputDialog("Enter Phone");
+                    System.out.println(firstname);
+
                 }
 
                 tfPassword.setVisible(false);

@@ -1,6 +1,7 @@
 package com.sqlsamples.View;
 
 import com.sqlsamples.Control.ConnectionSQL;
+import com.sqlsamples.Model.Customer;
 import com.sqlsamples.Model.Product;
 import com.sqlsamples.Model.Supplier;
 
@@ -18,6 +19,7 @@ public class AdminView extends JPanel
     SupplierView supplierView;
     ControlView controlView;
     ConnectionSQL connection;
+    HistoryView historyView;
 
     public AdminView(MainView mainView, ConnectionSQL connectionSQL)
     {
@@ -55,6 +57,12 @@ public class AdminView extends JPanel
 
     }
 
+    public void showHistory()
+    {
+        historyView = new HistoryView(connection.getDiscountHistory());
+        JOptionPane.showMessageDialog(null, historyView);
+    }
+
     /*public Product getProducts(String query)
     {
         return; // code
@@ -65,5 +73,19 @@ public class AdminView extends JPanel
     public void addDiscount()
     {
         // code
+    }
+
+    public void search()
+    {
+        int code = Integer.parseInt(JOptionPane.showInputDialog(null, "Code:"));
+        String name = JOptionPane.showInputDialog(null, "Name:");
+        String supplier = JOptionPane.showInputDialog(null, "Supplier");
+        connection.search(code, name, supplier);
+
+    }
+
+    public void addCustomer(Customer customer)
+    {
+        connection.addCustomer(customer);
     }
 }

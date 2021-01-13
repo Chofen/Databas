@@ -19,6 +19,8 @@ public class ProductView extends JPanel
     AddProductListener addProductListener = new AddProductListener();
     EditProductListener editProductListener = new EditProductListener();
     DeleteProductListener deleteProductListener = new DeleteProductListener();
+    HistoryListener historyListener = new HistoryListener();
+    SearchListener searchListener = new SearchListener();
 
     JLabel lblProduct = new JLabel("[PRODUCT]");
     JLabel lblProName = new JLabel("Name");
@@ -35,6 +37,8 @@ public class ProductView extends JPanel
 
     JButton btnEditQuantity = new JButton("Edit");
     JButton btnDeleteProduct = new JButton(("Delete"));
+    JButton btnHistory = new JButton(("History"));
+    JButton btnSearch = new JButton("Search");
 
     public ProductView(AdminView adminView)
     {
@@ -43,9 +47,12 @@ public class ProductView extends JPanel
         setPreferredSize(new Dimension(700, 100));
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
         btnEditQuantity.setPreferredSize(new Dimension(100, 25));
+        btnHistory.setPreferredSize(new Dimension(100, 25));
         btnEditQuantity.addActionListener(editProductListener);
         btnDeleteProduct.addActionListener(deleteProductListener);
         btnAddProduct.addActionListener(addProductListener);
+        btnHistory.addActionListener(historyListener);
+        btnSearch.addActionListener(searchListener);
         lblProduct.setPreferredSize(new Dimension(100, 25));
         lblProName.setPreferredSize(new Dimension(75, 25));
         lblProQuantity.setPreferredSize(new Dimension(100, 25));
@@ -59,6 +66,7 @@ public class ProductView extends JPanel
         tfSupplier.setPreferredSize(new Dimension(150, 25));
         btnAddProduct.setPreferredSize(new Dimension(150, 25));
         btnDeleteProduct.setPreferredSize(new Dimension(150, 25));
+        btnSearch.setPreferredSize(new Dimension(150, 25));
 
         add(lblProduct);
         add(lblProName);
@@ -74,6 +82,8 @@ public class ProductView extends JPanel
         add(btnEditQuantity);
         add(btnAddProduct);
         add(btnDeleteProduct);
+        add(btnHistory);
+        add(btnSearch);
         setVisible(true);
     }
 
@@ -121,6 +131,24 @@ public class ProductView extends JPanel
             int code = Integer.parseInt(JOptionPane.showInputDialog("Product code:"));
             int quantity  = Integer.parseInt(JOptionPane.showInputDialog("Quantity (new value):"));
             adminView.editQuantity(code, quantity);
+        }
+    }
+
+    private class HistoryListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            adminView.showHistory();
+        }
+    }
+
+    private class SearchListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            adminView.search();
         }
     }
 }
